@@ -1,0 +1,51 @@
+{
+  "vegetables": [
+    "carotte",
+    "courgette",
+    "patate douce",
+    "haricot vert",
+    "potiron",
+    "potimarron",
+    "épinard",
+    "brocoli",
+    "chou-fleur",
+    "petit pois",
+    "betterave",
+    "navet",
+    "panais",
+    "poireau",
+    "aubergine"
+  ],
+  "proteines": [
+    "poulet",
+    "dinde",
+    "bœuf",
+    "veau",
+    "poisson blanc (cabillaud, colin)",
+    "poisson gras (saumon, sardine)",
+    "œuf",
+    "lentilles",
+    "pois chiches",
+    "haricots blancs",
+    "tofu",
+    "yaourt nature",
+    "fromage frais (type fromage blanc)"
+  ],
+   "fruits": [
+    "pomme",
+    "poire",
+    "banane",
+    "abricot",
+    "pêche",
+    "nectarine",
+    "prune",
+    "mangue",
+    "papaye",
+    "avocat",
+    "fraise",
+    "framboise",
+    "myrtille",
+    "melon",
+    "pastèque"
+  ]
+}
