@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 export type BabyData = {
   size: number;
   weight: number;
+  birthDate: string;
 };
 
 export function useBabyData() {
@@ -16,7 +17,7 @@ export function useBabyData() {
   useEffect(() => {
     if (!user) return;
 
-    const ref = doc(db, 'babies', user.uid);
+    const ref = doc(db, 'users', user.uid);
     getDoc(ref).then((snap) => {
       if (snap.exists()) {
         setData(snap.data() as BabyData);
