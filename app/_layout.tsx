@@ -1,14 +1,18 @@
 import { Slot, useRouter, useSegments } from 'expo-router';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { useEffect, useState } from 'react';
-import * as ExpoSplashScreen from 'expo-splash-screen';
 import SplashScreen from './splash';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <AuthChecker />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <AuthChecker />
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 
