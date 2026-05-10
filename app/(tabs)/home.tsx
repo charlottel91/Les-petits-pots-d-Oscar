@@ -11,7 +11,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useBabyData, BabyData } from '@/hooks/useBabyData';
+import { useBabyQuery, useSaveBaby, BabyData } from '@/hooks/useBabyData';
 import Button from '@/components/ui/Button';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
@@ -27,7 +27,8 @@ const formatDate = (date: Date) =>
   date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 export default function HomeScreen() {
-  const { data, loading, save } = useBabyData();
+  const { data, isLoading: loading } = useBabyQuery();
+  const saveBaby = useSaveBaby();
   const [showPicker, setShowPicker] = useState(false);
 
   const {
@@ -62,7 +63,7 @@ export default function HomeScreen() {
     }
 
     try {
-      await save(parsed);
+      await saveBaby.mutateAsync({ data: parsed, babyId: data?.id });
       Alert.alert('Succès', 'Données enregistrées !');
     } catch {
       Alert.alert('Erreur', "Impossible d'enregistrer les données.");
