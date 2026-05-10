@@ -14,6 +14,7 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { useForm, Controller } from 'react-hook-form';
 import { vegetables, fruits, proteins } from '@/data/food';
 import { useMealQuery, useSaveMeal, MealEntry } from '@/hooks/useMealData';
+import { useBabyQuery } from '@/hooks/useBabyData';
 import Button from '@/components/ui/Button';
 import { ThemedText } from '@/components/themed-text';
 
@@ -104,7 +105,10 @@ export default function CalendarScreen() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const { data: mealData, isLoading: loadingMeal } = useMealQuery(selectedDate);
+  const { data: baby } = useBabyQuery();
+  const babyId = baby?.id ?? null;
+
+  const { data: mealData, isLoading: loadingMeal } = useMealQuery(babyId, selectedDate);
   const saveMeal = useSaveMeal();
 
   const {
@@ -145,7 +149,7 @@ export default function CalendarScreen() {
   const onSubmit = async (values: FormData) => {
     if (!selectedDate) return;
     try {
-      await saveMeal.mutateAsync({ date: selectedDate, entry: values as MealEntry });
+      await saveMeal.mutateAsync({ babyId: babyId!, date: selectedDate, entry: values as MealEntry });
       setModalVisible(false);
       Alert.alert('Succès', 'Repas enregistré !');
     } catch {
