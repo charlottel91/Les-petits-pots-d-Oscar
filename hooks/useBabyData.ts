@@ -12,8 +12,8 @@ import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 
 export type BabyData = {
-  size: number;
-  weight: number;
+  size: string;
+  weight: string;
   birthDate: string;
 };
 

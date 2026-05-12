@@ -9,9 +9,14 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.charlottel91.lespetitspotsdoscar",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.charlottel91.lespetitspotsdoscar",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/baby-eat.png",
@@ -51,6 +56,13 @@
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#910791"
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "3d488374-5cec-4dbf-ad77-9b12284b4227"
+      }
+    },
+    "owner": "charlottel91"
   }
 }

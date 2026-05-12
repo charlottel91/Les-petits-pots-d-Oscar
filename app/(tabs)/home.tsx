@@ -24,13 +24,16 @@ type FormData = {
 };
 
 const formatDate = (date: Date) =>
-  date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  date.toLocaleDateString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
 
 export default function HomeScreen() {
   const { data, isLoading: loading } = useBabyQuery();
   const saveBaby = useSaveBaby();
   const [showPicker, setShowPicker] = useState(false);
-
   const {
     control,
     handleSubmit,
@@ -43,7 +46,7 @@ export default function HomeScreen() {
   useEffect(() => {
     if (data) {
       reset({
-        size: data.size.toString(),
+        size: data.size,
         weight: data.weight.toString(),
         birthDate: data.birthDate ? new Date(data.birthDate) : new Date(),
       });
@@ -52,12 +55,12 @@ export default function HomeScreen() {
 
   const onSubmit = async (values: FormData) => {
     const parsed: BabyData = {
-      size: parseFloat(values.size.replace(',', '.')),
-      weight: parseFloat(values.weight.replace(',', '.')),
+      size: values.size.replace(',', '.'),
+      weight: values.weight.replace(',', '.'),
       birthDate: values.birthDate.toISOString().split('T')[0],
     };
 
-    if (isNaN(parsed.size) || isNaN(parsed.weight)) {
+    if (isNaN(Number(parsed.size)) || isNaN(Number(parsed.weight))) {
       Alert.alert('Erreur', 'Veuillez entrer des valeurs valides.');
       return;
     }
@@ -97,7 +100,11 @@ export default function HomeScreen() {
           render={({ field: { onChange, value } }) => (
             <>
               <TouchableOpacity
-                style={[styles.input, styles.dateInput, errors.birthDate && styles.inputError]}
+                style={[
+                  styles.input,
+                  styles.dateInput,
+                  errors.birthDate && styles.inputError,
+                ]}
                 onPress={() => setShowPicker(true)}
               >
                 <Text style={styles.dateText}>{formatDate(value)}</Text>
@@ -130,7 +137,10 @@ export default function HomeScreen() {
           name='size'
           rules={{
             required: 'Taille requise',
-            pattern: { value: /^\d+([.,]\d{0,3})?$/, message: 'Valeur invalide' },
+            pattern: {
+              value: /^\d+([.,]\d{0,3})?$/,
+              message: 'Valeur invalide',
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -153,7 +163,10 @@ export default function HomeScreen() {
           name='weight'
           rules={{
             required: 'Poids requis',
-            pattern: { value: /^\d+([.,]\d{0,3})?$/, message: 'Valeur invalide' },
+            pattern: {
+              value: /^\d+([.,]\d{0,3})?$/,
+              message: 'Valeur invalide',
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -173,7 +186,13 @@ export default function HomeScreen() {
 
       <View style={styles.button}>
         <Button
-          title={isSubmitting ? 'Enregistrement...' : data ? 'Mettre à jour' : 'Enregistrer'}
+          title={
+            isSubmitting
+              ? 'Enregistrement...'
+              : data
+                ? 'Mettre à jour'
+                : 'Enregistrer'
+          }
           handlePress={handleSubmit(onSubmit)}
           disabled={isSubmitting}
         />
